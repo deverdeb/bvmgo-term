@@ -66,10 +66,14 @@ func GetSize() (width, height int, err error) {
 	return termInformation.width, termInformation.height, nil
 }
 
+func Print(text string) {
+	fmt.Print(text)
+}
+
 func Printf(format string, params ...any) {
-	fmt.Printf(format, params...)
+	Print(fmt.Sprintf(format, params...))
 }
 
 func Clear() {
-	Printf(ansi.ClearScreen())
+	Print(ansi.ClearScreen())
 }

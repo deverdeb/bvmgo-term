@@ -3,25 +3,25 @@ package term
 import "github.com/deverdeb/bvmgo-term/ansi"
 
 func CursorMoveTo(column, row int) {
-	Printf(ansi.CursorMoveTo(column, row))
+	Print(ansi.CursorMoveTo(column, row))
 }
 
 func CursorMoveUp(row int) {
-	Printf(ansi.CursorMoveUp(row))
+	Print(ansi.CursorMoveUp(row))
 }
 
 func CursorMoveDown(row int) {
-	Printf(ansi.CursorMoveDown(row))
+	Print(ansi.CursorMoveDown(row))
 }
 
 func CursorMoveRight(column int) {
-	Printf(ansi.CursorMoveRight(column))
+	Print(ansi.CursorMoveRight(column))
 }
 
 func CursorMoveLeft(column int) {
-	Printf(ansi.CursorMoveLeft(column))
+	Print(ansi.CursorMoveLeft(column))
 }
 
 func CursorMoveToColumn(column int) {
-	Printf(ansi.CursorMoveToColumn(column))
+	Print(ansi.CursorMoveToColumn(column))
 }
