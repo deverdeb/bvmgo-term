@@ -14,6 +14,8 @@ type terminalInformation struct {
 	height       int
 }
 
+var output = os.Stderr
+
 var termInformation *terminalInformation = nil
 
 func Initialize() error {
@@ -21,15 +23,10 @@ func Initialize() error {
 		return nil
 	}
 	var err error
-	termInformation, err = initializeWithHandler(os.Stdout.Fd())
+	termInformation, err = initializeWithHandler(output.Fd())
 	if termInformation.isValid {
 		return err
 	}
-	termInformation, err = initializeWithHandler(os.Stderr.Fd())
-	if termInformation.isValid {
-		return err
-	}
-	termInformation, err = initializeWithHandler(os.Stdin.Fd())
 	return err
 }
 
@@ -48,7 +45,7 @@ func initializeWithHandler(windowHandle uintptr) (*terminalInformation, error) {
 			return windowInfo, err
 		}
 	} else {
-		err = fmt.Errorf("bvm-term not found")
+		err = fmt.Errorf("terminal not found")
 	}
 	return windowInfo, err
 }
@@ -61,13 +58,17 @@ func GetSize() (width, height int, err error) {
 		}
 	}
 	if !termInformation.isValid {
-		return 0, 0, fmt.Errorf("bvm-term not found")
+		return 0, 0, fmt.Errorf("terminal not found")
 	}
 	return termInformation.width, termInformation.height, nil
 }
 
-func Print(text string) {
-	fmt.Print(text)
+func Println(text ...any) {
+	_, _ = fmt.Fprintln(output, text...)
+}
+
+func Print(text ...any) {
+	_, _ = fmt.Fprint(output, text...)
 }
 
 func Printf(format string, params ...any) {

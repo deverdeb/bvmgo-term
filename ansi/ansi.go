@@ -8,13 +8,13 @@ import (
 
 const (
 	// Esc is the ANSI escape character.
-	Esc = "\u001b" //"\033";
+	Esc rune = '\u001b' //"\033";
 	// Csi is the Control Sequence Introducer
-	Csi = Esc + "[" //"\033[";
+	Csi = string(Esc) + "[" //"\033[";
 )
 
 func ClearScreen() string {
-	return Csi + "2J"
+	return Csi + "2J" + CursorMoveTo(0, 0)
 }
 
 func CursorAskPosition() string {

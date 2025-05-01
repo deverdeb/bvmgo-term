@@ -16,7 +16,7 @@ func Read(handler KeyboardEventHandler) error {
 		return err
 	}
 	defer func() {
-		_ = keyboard.Close()
+		go keyboard.Close()
 	}()
 
 	var processor = EventProcessor{started: true}
