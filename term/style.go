@@ -24,10 +24,14 @@ type Style struct {
 }
 
 func (style Style) Sprintf(text string, arguments ...any) string {
+	return style.Sprint(fmt.Sprintf(text, arguments...))
+}
+
+func (style Style) Sprint(text ...any) string {
+	formatedText := fmt.Sprint(text...)
 	if len(text) == 0 {
-		return text
+		return formatedText
 	}
-	formatedText := fmt.Sprintf(text, arguments...)
 	if style.Uppercase {
 		formatedText = strings.ToUpper(formatedText)
 	}
