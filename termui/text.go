@@ -48,6 +48,17 @@ func (text *Text) Display() {
 	cursor.MoveTo(0, 0)
 }
 
+func (text *Text) Hide() {
+	cursor := term.Cursor{}
+	width, height := text.Dimension()
+	line := strings.Repeat(" ", width)
+	for posRow := 0; posRow < height; posRow++ {
+		cursor.MoveTo(0, posRow)
+		cursor.Print(line)
+	}
+	cursor.MoveTo(0, 0)
+}
+
 func (text *Text) Dimension() (width, height int) {
 	height = len(text.lines)
 	width = 0

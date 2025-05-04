@@ -2,4 +2,4 @@
 
 go build
 
-./text.exe
+./inprogress.exe
