@@ -1,6 +1,6 @@
 package ansi
 
-// TextSplitSize method returns lines of string. Lines length is maxWidth (maximum).
+// TextSplitToSize method returns lines of string. Lines length is maxWidth (maximum).
 // Ignore and don't cut Ansi sequences.
 // If possible, cut line at space character.
 func TextSplitToSize(str string, maxWidth int) []string {

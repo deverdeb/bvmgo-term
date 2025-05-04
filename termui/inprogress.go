@@ -13,8 +13,19 @@ type InProgress struct {
 
 func BuildInProgress() InProgress {
 	uiInProgress := InProgress{
-		uiText:  BuildText("In progress"),
-		States:  []string{"⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"},
+		uiText: BuildText("In progress"),
+		States: []string{
+			term.Style{Foreground: &term.Color{110, 110, 250}}.Sprint("⠋"),
+			term.Style{Foreground: &term.Color{115, 115, 240}}.Sprint("⠙"),
+			term.Style{Foreground: &term.Color{120, 120, 230}}.Sprint("⠹"),
+			term.Style{Foreground: &term.Color{125, 125, 220}}.Sprint("⠸"),
+			term.Style{Foreground: &term.Color{130, 130, 210}}.Sprint("⠼"),
+			term.Style{Foreground: &term.Color{135, 135, 200}}.Sprint("⠴"),
+			term.Style{Foreground: &term.Color{130, 130, 210}}.Sprint("⠦"),
+			term.Style{Foreground: &term.Color{125, 125, 220}}.Sprint("⠧"),
+			term.Style{Foreground: &term.Color{120, 120, 230}}.Sprint("⠇"),
+			term.Style{Foreground: &term.Color{115, 115, 240}}.Sprint("⠏"),
+		},
 		current: -1,
 	}
 	return uiInProgress
