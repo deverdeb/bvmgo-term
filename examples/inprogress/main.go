@@ -12,18 +12,23 @@ func main() {
 	uiInProgress.SetText("Press 'q' to quit")
 
 	term.Clear()
-	uiInProgress.Start()
+	term.CursorDisplay(false)
+	defer term.CursorDisplay(true)
 
-	err := term.Read(func(event keyboard.KeyEvent, processor *term.EventProcessor) {
-		if event.Key == keyboard.KeyEsc || event.Rune == 'q' || event.Rune == 'Q' {
-			processor.Stop()
-		} else if event.Rune >= 'a' && event.Rune <= 'z' {
-			uiInProgress.SetText(fmt.Sprintf("You press '%s' key. Press 'q' to quit", string(event.Rune)))
+	{
+		uiInProgress.Start()
+		defer uiInProgress.Stop()
+
+		err := term.Read(func(event keyboard.KeyEvent, processor *term.EventProcessor) {
+			if event.Key == keyboard.KeyEsc || event.Rune == 'q' || event.Rune == 'Q' {
+				processor.Stop()
+			} else if event.Rune >= 'a' && event.Rune <= 'z' {
+				uiInProgress.SetText(fmt.Sprintf("You press '%s' key. Press 'q' to quit", string(event.Rune)))
+			}
+		})
+		if err != nil {
+			fmt.Println("execution error:", err)
 		}
-	})
-	uiInProgress.Stop()
-	if err != nil {
-		fmt.Println("execution error:", err)
 	}
 	fmt.Println("Good bye")
 }

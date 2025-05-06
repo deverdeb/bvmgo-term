@@ -30,6 +30,11 @@ func (text *Text) SetText(content string) {
 	text.computeLines()
 }
 
+func (text *Text) SetMaxDimension(maxWidth, maxHeight int) {
+	text.SetMaxWidth(maxWidth)
+	text.SetMaxHeight(maxHeight)
+}
+
 func (text *Text) SetMaxWidth(maxWidth int) {
 	text.maxWidth = maxWidth
 	text.computeLines()

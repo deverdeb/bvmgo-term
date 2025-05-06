@@ -25,3 +25,19 @@ func CursorMoveLeft(column int) {
 func CursorMoveToColumn(column int) {
 	Print(ansi.CursorMoveToColumn(column))
 }
+
+func CursorHide() {
+	Print(ansi.CursorHide())
+}
+
+func CursorShow() {
+	Print(ansi.CursorShow())
+}
+
+func CursorDisplay(visible bool) {
+	if visible {
+		CursorShow()
+	} else {
+		CursorHide()
+	}
+}

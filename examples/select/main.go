@@ -24,27 +24,40 @@ func extractParameter() (title string, options []string) {
 }
 
 func executeSelect(title string, options ...string) string {
-	selection := ""
-	selectui := termui.BuildSelect(options...)
-	selectui.HeaderText = title
+
+	width, height, err := term.GetSize()
+	if err != nil {
+		fmt.Println("terminal access error:", err)
+		return ""
+	}
+
+	term.CursorHide()
+	defer term.CursorShow()
 
 	term.Clear()
-	selectui.Display()
 
-	err := term.Read(func(event keyboard.KeyEvent, processor *term.EventProcessor) {
+	uiSelect := termui.BuildSelect(options...)
+	uiSelect.SetText(title)
+	uiSelect.SetMaxWidth(width)
+	uiSelect.SetMaxHeight(height)
+
+	uiSelect.Display()
+
+	selection := ""
+	err = term.Read(func(event keyboard.KeyEvent, processor *term.EventProcessor) {
 		if event.Key == keyboard.KeyEsc || event.Rune == 'q' || event.Rune == 'Q' {
 			processor.Stop()
-			selectui.Hide()
+			uiSelect.Hide()
 		} else if event.Key == keyboard.KeyArrowUp {
-			selectui.PreviousItem()
-			selectui.Display()
+			uiSelect.PreviousItem()
+			uiSelect.Display()
 		} else if event.Key == keyboard.KeyArrowDown {
-			selectui.NextItem()
-			selectui.Display()
+			uiSelect.NextItem()
+			uiSelect.Display()
 		} else if event.Key == keyboard.KeyEnter {
 			processor.Stop()
-			selectui.Hide()
-			selection = selectui.SelectedItem()
+			uiSelect.Hide()
+			selection = uiSelect.SelectedItem()
 		}
 	})
 	if err != nil {

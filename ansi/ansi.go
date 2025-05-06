@@ -49,6 +49,14 @@ func CursorMoveToColumn(column int) string {
 	return fmt.Sprintf(Csi+"%dG", column)
 }
 
+func CursorHide() string {
+	return fmt.Sprintf(Csi + "?25l")
+}
+
+func CursorShow() string {
+	return fmt.Sprintf(Csi + "?25h")
+}
+
 func StyleReset() string {
 	return Csi + "0m"
 }
